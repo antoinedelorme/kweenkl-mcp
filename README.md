@@ -28,12 +28,28 @@ npm install
 ### Claude Desktop (macOS)
 Edit: `~/Library/Application Support/Claude/claude_desktop_config.json`
 
+**Basic setup (notifications only):**
 ```json
 {
   "mcpServers": {
     "kweenkl": {
       "command": "node",
       "args": ["/absolute/path/to/kweenkl-mcp-server/index.js"]
+    }
+  }
+}
+```
+
+**With channel management (recommended):**
+```json
+{
+  "mcpServers": {
+    "kweenkl": {
+      "command": "node",
+      "args": ["/absolute/path/to/kweenkl-mcp-server/index.js"],
+      "env": {
+        "KWEENKL_DEVICE_TOKEN": "your-device-token-here"
+      }
     }
   }
 }
@@ -111,10 +127,16 @@ This demo token lets you test the service right away. Notifications sent to this
 
 ## Environment Variables
 
+- `KWEENKL_DEVICE_TOKEN` - Your device token for channel management (optional but recommended)
 - `KWEENKL_API_URL` - API base URL (default: https://api.kweenkl.com)
 - `KWEENKL_DEBUG` - Enable debug logging (set to 'true')
 
-## Tool Parameters
+## Tools Available
+
+### Core Tool
+
+#### `kweenkl`
+Send a push notification to a channel.
 
 The `kweenkl` tool accepts the following parameters:
 
@@ -123,6 +145,90 @@ The `kweenkl` tool accepts the following parameters:
 - `title` (optional): Brief title for the notification (max 50 chars recommended)
 - `priority` (optional): Priority level - "low", "normal" (default), or "high"
 - `payload` (optional): Custom JSON object for additional metadata
+
+### Channel Management Tools (requires KWEENKL_DEVICE_TOKEN)
+
+#### `kweenkl_list_channels`
+List all your notification channels with their webhook URLs.
+
+**No parameters required**
+
+**Example usage:**
+```
+User: "Show me all my kweenkl channels"
+AI: [Uses kweenkl_list_channels tool]
+Response:
+📢 Your kweenkl channels (3):
+
+1. **Production Alerts**
+   ID: abc-123
+   Webhook: https://api.kweenkl.com/webhook/xyz-789
+   Notifications: 42
+
+2. **Daily Reports**
+   ID: def-456
+   Webhook: https://api.kweenkl.com/webhook/uvw-789
+   Notifications: 7
+```
+
+#### `kweenkl_create_channel`
+Create a new notification channel.
+
+**Parameters:**
+- `name` (required): Channel name
+- `description` (optional): Channel description
+- `color` (optional): Hex color code (e.g., "#FF0000")
+- `icon` (optional): Icon name
+
+**Example usage:**
+```
+User: "Create a channel called 'Server Alerts' with a red color"
+AI: [Uses kweenkl_create_channel tool]
+Response:
+✅ Channel created!
+
+**Server Alerts**
+ID: new-channel-id
+Webhook URL: https://api.kweenkl.com/webhook/new-token
+
+You can now send notifications to this channel!
+```
+
+#### `kweenkl_update_channel`
+Update an existing channel's properties.
+
+**Parameters:**
+- `channel_id` (required): Channel ID to update
+- `name` (optional): New name
+- `description` (optional): New description
+- `color` (optional): New hex color
+- `icon` (optional): New icon name
+
+**Example usage:**
+```
+User: "Rename the 'Test' channel to 'Production'"
+AI: [Uses kweenkl_list_channels to find the channel ID, then kweenkl_update_channel]
+Response:
+✅ Channel updated!
+
+**Production**
+ID: abc-123
+Webhook: https://api.kweenkl.com/webhook/xyz-789
+```
+
+#### `kweenkl_delete_channel`
+Delete a notification channel permanently.
+
+**Parameters:**
+- `channel_id` (required): Channel ID to delete
+
+**Example usage:**
+```
+User: "Delete the 'Old Test' channel"
+AI: [Uses kweenkl_list_channels to find the channel ID, then kweenkl_delete_channel]
+Response:
+✅ Channel "Old Test" deleted successfully.
+```
 
 ## Testing
 
