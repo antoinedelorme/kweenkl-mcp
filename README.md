@@ -76,6 +76,24 @@ Consult your MCP client's documentation for stdio server configuration. The serv
 - Path to index.js
 - Optional environment variables
 
+### Remote MCP Server
+
+For clients that support HTTP Streamable MCP transport (like n8n, ChatGPT, or other automation tools), you can use our hosted MCP server instead of running a local one.
+
+**Endpoint:** `https://api.kweenkl.com/mcp`
+
+**Authentication:**
+- For full access (channel management): Include `X-Kweenkl-Device-Token` header with your device token
+- For ChatGPT: Use OAuth flow (contact us for setup)
+
+This allows AI workflows and assistants to send kweenkl notifications without local installation. The remote server supports all the same tools as the local version.
+
+**Example n8n configuration:**
+```
+MCP Server URL: https://api.kweenkl.com/mcp
+Headers: X-Kweenkl-Device-Token: your-device-token
+```
+
 ## Usage
 
 Once configured, ask your AI assistant:
