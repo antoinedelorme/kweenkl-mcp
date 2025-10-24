@@ -1,7 +1,7 @@
 {
   "name": "kweenkl-mcp-server",
   "version": "1.0.0",
-  "description": "MCP server for kweenkl - allows AI assistants to send notifications",
+  "description": "MCP server for kweenkl - allows AI assistants to send push notifications",
   "type": "module",
   "main": "index.js",
   "bin": {
@@ -14,18 +14,40 @@
   "keywords": [
     "mcp",
     "model-context-protocol",
+    "mcp-server",
     "kweenkl",
     "notifications",
+    "push-notifications",
     "ai",
     "claude",
-    "push-notifications"
+    "claude-desktop",
+    "ai-assistant",
+    "llm",
+    "webhook"
   ],
-  "author": "kweenkl",
+  "author": {
+    "name": "kweenkl",
+    "email": "contact@kweenkl.com",
+    "url": "https://kweenkl.com"
+  },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antoinedelorme/kweenkl-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/antoinedelorme/kweenkl-mcp/issues"
+  },
+  "homepage": "https://github.com/antoinedelorme/kweenkl-mcp#readme",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^0.5.0"
   },
   "engines": {
     "node": ">=18.0.0"
-  }
+  },
+  "files": [
+    "index.js",
+    "README.md",
+    "LICENSE"
+  ]
 }
