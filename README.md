@@ -14,6 +14,10 @@
 
 ---
 
+<a href="https://glama.ai/mcp/servers/@antoinedelorme/kweenkl-mcp">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@antoinedelorme/kweenkl-mcp/badge" alt="kweenkl Server MCP server" />
+</a>
+
 > **🚀 PRE-LAUNCH:** kweenkl is currently in pre-launch mode. Join our early access program to get notifications from your AI assistant!
 
 MCP (Model Context Protocol) server that enables AI assistants (Claude, etc.) to send real-time push notifications through kweenkl.
