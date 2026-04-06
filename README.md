@@ -17,7 +17,7 @@
 claude mcp add kweenkl https://api.kweenkl.com/mcp --transport http --scope user --header "X-Kweenkl-Device-Token: YOUR_DEVICE_TOKEN"
 ```
 
-**ChatGPT:** Add in Settings > MCP Servers with URL `https://api.kweenkl.com/mcp` and header `X-Kweenkl-Device-Token: YOUR_DEVICE_TOKEN`
+**ChatGPT:** Add `https://api.kweenkl.com/mcp` in Settings > Apps & Connectors. Authentication is handled via OAuth — you'll be prompted to enter your device token during setup.
 
 **Any MCP client:** Point to `https://api.kweenkl.com/mcp` with the `X-Kweenkl-Device-Token` header.
 
