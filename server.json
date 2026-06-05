@@ -1,0 +1,25 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.antoinedelorme/kweenkl-mcp",
+  "description": "Push notifications for AI agents - send instant iPhone notifications from any MCP client.",
+  "repository": {
+    "url": "https://github.com/antoinedelorme/kweenkl-mcp",
+    "source": "github"
+  },
+  "websiteUrl": "https://kweenkl.com",
+  "version": "1.1.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://api.kweenkl.com/mcp",
+      "headers": [
+        {
+          "name": "X-Kweenkl-Device-Token",
+          "description": "kweenkl device token (from the iOS app settings). Optional \u2014 only needed for channel management tools; sending notifications works with a channel webhook token, and OAuth login is also supported.",
+          "isRequired": false,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}

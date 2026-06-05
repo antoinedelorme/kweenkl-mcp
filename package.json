@@ -1,6 +1,6 @@
 {
   "name": "kweenkl-mcp-server",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "MCP server for kweenkl - allows AI assistants to send push notifications",
   "type": "module",
   "main": "index.js",
@@ -49,5 +49,6 @@
     "index.js",
     "README.md",
     "LICENSE"
-  ]
+  ],
+  "mcpName": "io.github.antoinedelorme/kweenkl-mcp"
 }

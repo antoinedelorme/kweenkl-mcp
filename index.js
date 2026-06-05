@@ -60,6 +60,25 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
           payload: {
             type: "object",
             description: "Optional custom JSON payload for additional metadata. Can include any structured data that your app might process (e.g., action buttons, deep links, custom data).",
+          },
+          glance: {
+            type: "object",
+            description: "Optional structured visualization rendered as a card inside the kweenkl iOS app. Must include a 'type' field. v1 supports type='line_chart' with required fields {labels: string[], values: number[]} (same length, ≥2 points) and optional fields {subtitle, accent (#hex), comment, x_label, y_label}. Example: {type:'line_chart', subtitle:'Évolution 2015→2024', labels:['2015','2016','2017'], values:[670,720,780], accent:'#ff6b6b', comment:'tendance haussière'}",
+            properties: {
+              type: {
+                type: "string",
+                description: "Glance card type. Currently only 'line_chart' is supported.",
+                enum: ["line_chart"]
+              },
+              subtitle: { type: "string", description: "Small text under the title." },
+              labels: { type: "array", items: { type: "string" }, description: "X-axis labels (same length as values, ≥2)." },
+              values: { type: "array", items: { type: "number" }, description: "Y-axis numeric values (same length as labels, ≥2)." },
+              accent: { type: "string", description: "Hex color for the line, e.g. '#ff6b6b'. Defaults to coral if omitted or invalid." },
+              comment: { type: "string", description: "Optional annotation displayed near the delta badge." },
+              x_label: { type: "string", description: "Optional X-axis title." },
+              y_label: { type: "string", description: "Optional Y-axis title." }
+            },
+            required: ["type"]
           }
         },
         required: ["webhook_token", "message"],
@@ -156,8 +175,8 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
 });
 
 // Execute kweenkl notification
-async function executeKweenkl({ webhook_token, message, title, priority, payload }) {
-  debugLog('Executing kweenkl:', { message, title, priority, hasPayload: !!payload });
+async function executeKweenkl({ webhook_token, message, title, priority, payload, glance }) {
+  debugLog('Executing kweenkl:', { message, title, priority, hasPayload: !!payload, hasGlance: !!glance });
 
   try {
     // Construct request body
@@ -168,6 +187,9 @@ async function executeKweenkl({ webhook_token, message, title, priority, payload
     if (title) body.title = title;
     if (priority) body.priority = priority;
     if (payload) body.payload = payload;
+    if (glance && typeof glance === 'object' && typeof glance.type === 'string' && glance.type.length > 0) {
+      body.glance = glance;
+    }
 
     debugLog('Request body:', body);
 
@@ -500,7 +522,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
   // Route to appropriate handler
   switch (toolName) {
     case "kweenkl":
-      const { webhook_token, message, title, priority, payload } = args;
+      const { webhook_token, message, title, priority, payload, glance } = args;
 
       // Validate required parameters
       if (!webhook_token || !message) {
@@ -524,7 +546,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         };
       }
 
-      return await executeKweenkl({ webhook_token, message, title, priority, payload });
+      return await executeKweenkl({ webhook_token, message, title, priority, payload, glance });
 
     case "kweenkl_list_channels":
       return await listChannels();
