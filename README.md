@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/antoinedelorme-kweenkl-mcp-badge.png)](https://mseep.ai/app/antoinedelorme-kweenkl-mcp)
+
 # kweenkl MCP Server (Deprecated)
 
 > **This local MCP server is deprecated.** Use the hosted remote MCP server instead — no installation required.
